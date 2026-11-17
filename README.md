@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tic-Tac-Toe
+
+A classic two-player Tic-Tac-Toe game built with Next.js and React. Players take turns as X and O on a 3×3 board, and the first to get three in a row wins. The game detects draws, keeps a running score across rounds, and is responsive on both phones and desktop.
+
+**Live demo:** https://siobal-tic-tac-toe.vercel.app/
+
+## Features
+
+- Two-player local play with X and O taking turns
+- Win and draw detection, with the winning line highlighted
+- Scoreboard tracking wins for each player and draws across rounds
+- New Game button that resets the board and keeps the score
+- Pop, win, and draw animations (disabled for users who prefer reduced motion)
+- Responsive layout for mobile and desktop
+- Accessible squares with labels, keyboard support, and a live status message
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router) and React
+- TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/)
+- [Vite+](https://viteplus.dev/) for the toolchain (formatting, linting, type checks, package management)
+- pnpm
+- Deployed on [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+vp install
+vp run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other commands:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+vp check        # format, lint, and type check
+vp check --fix  # auto-fix what it can
+vp run build    # production build
+```
 
-## Learn More
+## How to Play
 
-To learn more about Next.js, take a look at the following resources:
+1. X goes first. Click an empty square to place your mark.
+2. Players alternate turns.
+3. Get three marks in a row (horizontal, vertical, or diagonal) to win.
+4. If the board fills up with no winner, the game is a draw.
+5. Click **New Game** to play again. The scores are kept.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/                  page layout, global styles, favicons
+components/game-comp/ board, square, scoreboard, turn status, game container
+components/ui/        shadcn/ui components
+hooks/                useTicTacToe state hook
+lib/game.ts           pure game logic (winner check and reducer)
+public/               fonts, images
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The game rules live in `lib/game.ts` as a pure reducer with no React in it, so the logic is separate from the UI and easy to test.
